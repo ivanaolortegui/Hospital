@@ -12,6 +12,11 @@ import { ProgressComponent } from './progress/progress.component';
 import { Graphics1Component } from './graphics1/graphics1.component';
 
 
+// Temporales 
+
+
+import { BoosterComponent } from '../components/booster/booster.component';
+
 
 
 @NgModule({
@@ -19,7 +24,8 @@ import { Graphics1Component } from './graphics1/graphics1.component';
         PagesComponent,
         DashboardComponent,
         ProgressComponent,
-        Graphics1Component
+        Graphics1Component,
+        BoosterComponent
     ],
     exports: [
         DashboardComponent,

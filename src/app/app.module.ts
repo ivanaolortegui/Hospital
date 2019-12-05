@@ -9,11 +9,12 @@ import { PagesModule } from './pages/pages.module';
 
 // Temporal
 import { FormsModule } from '@angular/forms';
+
 // Componentes
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
-import { BoosterComponent } from './components/booster/booster.component';
+
 
 
 
@@ -22,7 +23,7 @@ import { BoosterComponent } from './components/booster/booster.component';
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    BoosterComponent
+
   ],
   imports: [
     BrowserModule,

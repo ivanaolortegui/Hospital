@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-booster',
@@ -7,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BoosterComponent implements OnInit {
 
-  percentage: number = 50;
-  constructor() { }
+  @Input('name') legend: string = 'leyenda';
+  @Input() percentage: number = 50;
+  constructor() {
+    console.log(this.legend);
+    
+   }
 
   ngOnInit() {
+    console.log(this.legend);
   }
   changeValue(value: number) {
     if (this.percentage >= 100 && value > 0) {
