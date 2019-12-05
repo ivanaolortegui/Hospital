@@ -11,6 +11,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressComponent } from './progress/progress.component';
 import { Graphics1Component } from './graphics1/graphics1.component';
 
+import { ChartsModule } from 'ng2-charts';
+
 
 // Temporales 
 
@@ -25,7 +27,8 @@ import { BoosterComponent } from '../components/booster/booster.component';
         DashboardComponent,
         ProgressComponent,
         Graphics1Component,
-        BoosterComponent
+        BoosterComponent,
+       
     ],
     exports: [
         DashboardComponent,
@@ -37,6 +40,7 @@ import { BoosterComponent } from '../components/booster/booster.component';
         SharedModule,
         PAGES_ROUTES,
         FormsModule,
+        ChartsModule
     ]
 })
 export class PagesModule { }
