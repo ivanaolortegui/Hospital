@@ -19,6 +19,7 @@ import { ChartsModule } from 'ng2-charts';
 
 import { BoosterComponent } from '../components/booster/booster.component';
 import { DonutchartComponent } from '../components/donutchart/donutchart.component';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
 
 
@@ -29,7 +30,8 @@ import { DonutchartComponent } from '../components/donutchart/donutchart.compone
         ProgressComponent,
         Graphics1Component,
         BoosterComponent,
-        DonutchartComponent
+        DonutchartComponent,
+        AccountSettingsComponent
        
     ],
     exports: [
