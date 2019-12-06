@@ -6,6 +6,7 @@ import { APP_ROUTES } from './app-routing.module';
 
 // Modulos
 import { PagesModule } from './pages/pages.module';
+import { ServiceModule } from './services/service.module';
 
 // Temporal
 import { FormsModule } from '@angular/forms';
@@ -14,11 +15,6 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
-import { SettingsService } from './services/settings.service';
-
-
-
-
 
 @NgModule({
   declarations: [
@@ -32,9 +28,10 @@ import { SettingsService } from './services/settings.service';
     BrowserModule,
     APP_ROUTES,
     PagesModule,
-    FormsModule
+    FormsModule,
+    ServiceModule,
   ],
-  providers: [SettingsService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
