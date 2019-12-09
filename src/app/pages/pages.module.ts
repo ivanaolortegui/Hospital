@@ -20,6 +20,8 @@ import { ChartsModule } from 'ng2-charts';
 import { BoosterComponent } from '../components/booster/booster.component';
 import { DonutchartComponent } from '../components/donutchart/donutchart.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { PromiseComponent } from './promise/promise.component';
+import { RxjsComponent } from './rxjs/rxjs.component';
 
 
 
@@ -31,7 +33,9 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
     Graphics1Component,
     BoosterComponent,
     DonutchartComponent,
-    AccountSettingsComponent
+    AccountSettingsComponent,
+    PromiseComponent,
+    RxjsComponent
 
   ],
   exports: [

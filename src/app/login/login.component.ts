@@ -17,7 +17,6 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log('jdj');
     this.router.navigate(['/dashboard']);
     init_plugins()
   }
