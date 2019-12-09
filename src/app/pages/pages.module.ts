@@ -24,27 +24,27 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 
 
 @NgModule({
-    declarations: [
-        PagesComponent,
-        DashboardComponent,
-        ProgressComponent,
-        Graphics1Component,
-        BoosterComponent,
-        DonutchartComponent,
-        AccountSettingsComponent
-       
-    ],
-    exports: [
-        DashboardComponent,
-        ProgressComponent,
-        Graphics1Component,
+  declarations: [
+    PagesComponent,
+    DashboardComponent,
+    ProgressComponent,
+    Graphics1Component,
+    BoosterComponent,
+    DonutchartComponent,
+    AccountSettingsComponent
 
-    ],
-    imports: [
-        SharedModule,
-        PAGES_ROUTES,
-        FormsModule,
-        ChartsModule
-    ]
+  ],
+  exports: [
+    DashboardComponent,
+    ProgressComponent,
+    Graphics1Component,
+
+  ],
+  imports: [
+    SharedModule,
+    PAGES_ROUTES,
+    FormsModule,
+    ChartsModule
+  ]
 })
 export class PagesModule { }

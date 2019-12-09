@@ -35,7 +35,6 @@ export class AccountSettingsComponent implements OnInit {
         ref.classList.add('working');
         break;
       }
- 
     }
   }
 }
