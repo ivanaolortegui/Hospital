@@ -5,7 +5,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { SettingsService, 
           SidebarService, 
           SharedService, 
-          UserService } from './service.index';
+          UserService,
+          LoadGuardGuard 
+          } from './service.index';
+
 
 
 
@@ -14,10 +17,11 @@ import { SettingsService,
   declarations: [],
   imports: [
     CommonModule,
-    HttpClientModule  ],
+    HttpClientModule,  ],
   providers: [SettingsService,
               SidebarService, 
               SharedService,
-              UserService ],
+              UserService,
+              LoadGuardGuard],
 })
 export class ServiceModule { }

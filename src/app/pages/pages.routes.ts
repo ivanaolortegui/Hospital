@@ -9,11 +9,15 @@ import { PromiseComponent } from './promise/promise.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 
 
+import { LoadGuardGuard } from '../services/service.index';
+
+
 
 const pagesRoutes: Routes = [
   {
     path: '',
     component: PagesComponent,
+    canActivate: [LoadGuardGuard],
     children: [
       { path: 'dashboard', component: DashboardComponent, data : {title: 'dashboard'}},
       { path: 'progress', component: ProgressComponent, data : {title: 'progress'}},

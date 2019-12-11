@@ -6,6 +6,7 @@ import swal from 'sweetalert';
 
 //Servicios
 import { UserService } from '../services/service.index';
+import { User } from '../models/user.model';
 
 declare function init_plugins();
 
@@ -60,6 +61,12 @@ export class RegisterComponent implements OnInit {
       return;
     }
     console.log(this.form.valid);
+    let user = new User(
+      this.form.value.name,
+      this.form.value.email,
+      this.form.value.password
+    )
+    // this._userService.createUser(user).subscribe(resp => console.log(resp));
     
   }
 }
