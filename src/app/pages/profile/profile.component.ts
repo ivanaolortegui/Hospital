@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../services/service.index';
-import { User } from '../models/user.model';
-import { _URLSERVICES } from '../config/config';
+import { UserService } from '../../services/service.index';
+import { User } from '../../models/user.model';
+import { _URLSERVICES } from '../../config/config';
 import swal from 'sweetalert';
 
 

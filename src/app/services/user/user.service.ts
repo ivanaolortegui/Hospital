@@ -82,18 +82,41 @@ export class UserService {
   updateUser(user: User) {
     let url = _URLSERVICES + '/user' + user._id;
     url += '?token=' + this.token;
-    return this.http.put(url, user).pipe(map((resp: any) => {
-      this.saveInStorage(resp.user._id, this.token, resp.user);
-      swal('Usuario actualizado', user.name, 'success');
-      return true;
-    }));
+    return this.http.put(url, user)
+      .pipe(map((resp: any) => {
+        if (user._id === this.user._id) {
+          let userDB: User = resp.user;
+          this.saveInStorage(userDB._id, this.token, userDB);
+        }
+        swal('Usuario actualizado', user.name, 'success');
+        return true;
+      }));
   }
-  changeImg(file: File, id:string){
+  changeImg(file: File, id: string) {
     this._uploadFileService.uploadFile(file, 'users', id)
-    .then((resp : any)=> {
-      this.user.img = resp.user.img;
-      swal('Imagen Acutualizada', this.user.name, 'succes');
-      this.saveInStorage(id, this.token, this.user);
-    })
-}
+      .then((resp: any) => {
+        this.user.img = resp.user.img;
+        swal('Imagen Acutualizada', this.user.name, 'succes');
+        this.saveInStorage(id, this.token, this.user);
+      })
+  }
+  loadUsers(from: number = 0) {
+    let url = _URLSERVICES + '/user?from=' + from;
+    return this.http.get(url);
+  }
+
+  searchUsers(value: string) {
+    let url = _URLSERVICES + '/search/colection/users/' + value;
+    return this.http.get(url)
+      .pipe(map((resp: any) => resp.users));
+  }
+  deleteUser(id: string) {
+    let url = _URLSERVICES + '/user/' + id;
+    url += '?token=' + this.token;
+    return this.http.delete(url)
+      .pipe(map(resp => {
+        swal('Usuario borrado', 'El usuario ha sido eliminado correctamente', 'succes');
+        return true;
+      }));
+  }
 }

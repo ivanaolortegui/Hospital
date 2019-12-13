@@ -1,0 +1,86 @@
+<div class="row animated fadeIn">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+
+        <input #input (keyup)="searchUser(input.value)" type="text" class="form-control pointer" placeholder="Buscar Usuario">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row animated fadeIn " *ngIf="load">
+  <div class="col-12">
+    <div class="alert alert-warning text-center">
+      <strong> Cargando </strong>
+      <br>
+      <i class="fa fa-refresh fa-spin fa-2x"></i>
+      <br>
+      <span>Espere por favor</span>
+    </div>
+  </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="!load">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title"> Usuarios registrados (<small>123</small>) </h3>
+        <h3 class="card-title"> Usuarios registrados (<small>{{totalRegisters}}</small>) </h3>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Imagen</th>
+              <th>Correo</th>
+              <th>Nombre</th>
+              <th>Role</th>
+              <th>Auth</th>
+              <td></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users">
+              <td class="w70">
+                <img (click)="showModal(user._id)" [src]="user.img | img " alt="" class="img-50 img-circle pointer">
+              </td>
+              <td>
+                {{user.email}}
+              </td>
+              <td>
+                  {{user.name}}
+              </td>
+              <td> 
+                
+                <select [(ngModel)]="user.role" name="role" id="" class="form-control">
+                  <option value="ADMIN_ROLE">ADMIN_ROLE</option>
+                  <option value="USER_ROLE">USER_ROLE</option>
+                </select>
+
+              </td>
+              <td>
+                <label *ngIf="user.google" class="label label-danger">Google</label>
+                <label *ngIf="!user.google" fclass="label label-info">Normal</label>
+              </td>
+              <td>
+                <button (click)="saveUser(user)" class="btn btn-primary">
+                  <i class="fa fa-save"></i>
+                </button>
+                <button (click)="deleteUser(user)"class="btn btn-danger">
+                  <i class="fa fa-trash-o"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <button (click)="changeFrom(-5)" class="btn btn-secondary">
+          Anteriores
+        </button>
+        <button (click)="changeFrom(5)" class="btn btn-secondary">
+          Siguientes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -24,7 +24,9 @@ import { DonutchartComponent } from '../components/donutchart/donutchart.compone
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromiseComponent } from './promise/promise.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
-import { ProfileComponent } from './profile.component';
+import { ProfileComponent } from './profile/profile.component';
+import { UsersComponent } from './users/users.component';
+import { ModalUploadComponent } from '../components/modal-upload/modal-upload.component';
 
 
 
@@ -41,7 +43,9 @@ import { ProfileComponent } from './profile.component';
     AccountSettingsComponent,
     PromiseComponent,
     RxjsComponent,
-    ProfileComponent
+    ProfileComponent,
+    UsersComponent,
+    ModalUploadComponent,
 
   ],
   exports: [
