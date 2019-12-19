@@ -1,0 +1,54 @@
+<div class="row animated fadeIn">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <input #input (keyup)="searchHospital(input.value)" type="text" class="form-control pointer"
+          placeholder="Buscar Hospital">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="text-right">
+          <button (click)="createHospital()" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+            <i class="fa fa-plus"></i>
+            Crear Hospital
+          </button>
+        </div>
+        <h3 class="card-title"> Hospitales registrados (<small>{{_hospitalService.totalHospitals}}</small>) </h3>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Foto</th>
+              <th>Hospital</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let hospital of hospitals">
+              <td>
+                <img (click)="updateImage(hospital)" [src]="hospital.img | img:'hospitals'" class="img-50 pointer" alt="">
+              </td>
+              <td>
+                <input [(ngModel)]="hospital.name" name="name" type="text" class="form-control pointer"
+                  placeholder="Nombre del Hospital">
+              </td>
+              <td>
+                <button (click)="saveHospital(hospital)" class="btn btn-primary">
+                  <i class="fa fa-save"></i>
+                </button>
+                <button (click)="deleteHospital(hospital)" class="btn btn-danger">
+                  <i class="fa fa-trash-o"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

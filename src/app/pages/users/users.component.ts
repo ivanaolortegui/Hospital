@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 
 import { UserService } from 'src/app/services/service.index';
-import { ModalUploadService } from 'src/app/components/modal-upload/modal-upload.service';
+import { ModalUploadService } from 'src/app/services/modal-upload/modal-upload.service';
 
 /* import swal from 'sweetalert';
 */

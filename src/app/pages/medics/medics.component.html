@@ -1,0 +1,57 @@
+<div class="row animated fadeIn">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <input #input (keyup)="searchMedic(input.value)" type="text" class="form-control pointer"
+          placeholder="Buscar Médico">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="text-right">
+          <button [routerLink]="['/medic', 'new']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+            <i class="fa fa-plus"></i>
+            Crear Médico
+          </button>
+        </div>
+        <h3 class="card-title"> Médicos registrados (<small>{{ _medicService.totalMedics}}</small>) </h3>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Foto</th>
+              <th>Médico</th>
+              <th>Hospital</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let medic of medics">
+              <td>
+                <img [src]="medic.img | img: 'medic'" class="img-50 img-circle" alt="">
+              </td>
+              <td>
+                {{medic.name}}
+              </td>
+              <td>
+                {{medic.hospital.name}}
+              </td>
+              <td>
+                <button [routerLink]="['/medic', medic._id]" class="btn btn-primary">
+                  <i class="fa fa-edit"></i>
+                </button>
+                <button (click)="deleteMedic(medic)"class="btn btn-danger">
+                  <i class="fa fa-trash-o"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

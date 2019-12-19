@@ -27,6 +27,10 @@ import { RxjsComponent } from './rxjs/rxjs.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UsersComponent } from './users/users.component';
 import { ModalUploadComponent } from '../components/modal-upload/modal-upload.component';
+import { HospitalsComponent } from './hospitals/hospitals.component';
+import { MedicsComponent } from './medics/medics.component';
+import { MedicComponent } from './medics/medic.component';
+
 
 
 
@@ -46,7 +50,10 @@ import { ModalUploadComponent } from '../components/modal-upload/modal-upload.co
     ProfileComponent,
     UsersComponent,
     ModalUploadComponent,
-
+    HospitalsComponent,
+    MedicsComponent,
+    MedicComponent,
+ 
   ],
   exports: [
     DashboardComponent,

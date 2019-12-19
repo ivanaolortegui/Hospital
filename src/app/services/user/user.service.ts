@@ -28,7 +28,7 @@ export class UserService {
       this.token = localStorage.getItem('token');
       this.user = JSON.parse(localStorage.getItem('user'))
     } else {
-      this.token = "";
+      this.token = '';
       this.user = null;
     }
   }
