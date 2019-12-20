@@ -4,6 +4,7 @@ import { _URLSERVICES } from 'src/app/config/config';
 import { map } from 'rxjs/operators';
 import { UserService } from '../user/user.service';
 import swal from 'sweetalert';
+import { Medic } from 'src/app/models/medic.model';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +44,7 @@ totalMedics: number = 0;
       }));
   }
 
-  saveMdic(medic: any) {
+  saveMedic(medic: Medic) {
     let url = _URLSERVICES + '/medic';
     if(medic._id){
       url +='/'+ medic._id;

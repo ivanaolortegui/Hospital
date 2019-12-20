@@ -3,16 +3,19 @@ import { MedicService, HospitalsService, ModalUploadService } from 'src/app/serv
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { Medic } from 'src/app/models/medic.model';
+import { Hospital } from 'src/app/models/hospital.model';
+
 @Component({
   selector: 'app-medic',
   templateUrl: './medic.component.html',
 
 })
 export class MedicComponent implements OnInit {
-  medic: any;
-  // medic: Medic = new Medic('','','','');
-  // hospital: Hospital
-  hospitals: any[] = [];
+  medic: Medic = new Medic('','','','');
+  hospital: Hospital = new Hospital('');
+ 
+  hospitals: Hospital[] = [];
   constructor(public _medicService: MedicService,
     public _hospitalService: HospitalsService,
     public router: Router,
@@ -38,8 +41,8 @@ export class MedicComponent implements OnInit {
     this._medicService.loadMedic(id)
       .subscribe(medic => {
         this.medic = medic;
-        // this.medic.hospital = medic.hospital._id
-        // this.changeHospital( this.medic.hospital);
+         this.medic.hospital = medic.hospital._id
+        this.changeHospital( this.medic.hospital);
       })
   }
 
@@ -47,10 +50,10 @@ export class MedicComponent implements OnInit {
     if (f.invalid) {
       return;
     }
-    this._medicService.saveMdic(this.medic)
-      .subscribe(medic => {
-        /*   this.medic._id = medic._id;
-          this.router.navigate(['/medic', medic._id]); */
+    this._medicService.saveMedic(this.medic)
+      .subscribe((medic : any) => {
+          this.medic._id = medic._id;
+          this.router.navigate(['/medic', medic._id]); 
         return medic
       })
 

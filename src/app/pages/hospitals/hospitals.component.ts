@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HospitalsService, ModalUploadService } from 'src/app/services/service.index';
+import { Hospital } from 'src/app/models/hospital.model';
 
 
 declare var swal: any;
@@ -11,7 +12,7 @@ declare var swal: any;
 })
 export class HospitalsComponent implements OnInit {
 
-  hospitals: any[] = [];
+  hospitals: Hospital[] = [];
   constructor(public _hospitalService: HospitalsService,
     public _modalUploadService : ModalUploadService ) { }
 
@@ -32,11 +33,11 @@ export class HospitalsComponent implements OnInit {
     this._hospitalService.loadHospitals()
       .subscribe(hospitals => this.hospitals = hospitals);
   }
-  saveHospital(hospital) {
+  saveHospital(hospital: Hospital) {
     this._hospitalService.updateHospital(hospital)
     .subscribe(()=> this.loadHospitals);
   }
-  deleteHospital(hospital) {
+  deleteHospital(hospital: Hospital) {
     this._hospitalService.deleteHospital( hospital._id)
     .subscribe( ()=> this.loadHospitals());
   }
@@ -59,7 +60,7 @@ export class HospitalsComponent implements OnInit {
     });
   }
 
-  updateImage(hospital){
+  updateImage(hospital: Hospital){
     this._modalUploadService.showModal('hospitales', hospital._id)
   }
 }
