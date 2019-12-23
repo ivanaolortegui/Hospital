@@ -1,6 +1,9 @@
+// Guard
+
+export { AdminGuard } from './guards/admin.guard';
+export {LoadGuardGuard } from './guards/load-guard.guard';
 
 
-export {LoadGuardGuard } from './load-guard.guard';
 export {HospitalsService} from './hospitals/hospitals.service';
 export {UploadFileService} from './file/upload-file.service';
 export {UserService} from './user/user.service';

@@ -14,6 +14,7 @@ import { UploadFileService } from '../file/upload-file.service';
 export class UserService {
   user: User; // revisar
   token: string;
+  menu: any[] = [];
   constructor(public http: HttpClient,
     public router: Router,
     public _uploadFileService: UploadFileService) {
@@ -27,9 +28,11 @@ export class UserService {
     if (localStorage.getItem('token')) {
       this.token = localStorage.getItem('token');
       this.user = JSON.parse(localStorage.getItem('user'))
+      this.user = JSON.parse(localStorage.getItem('menu'))
     } else {
       this.token = '';
       this.user = null;
+      this.menu = [];
     }
   }
 
@@ -40,18 +43,20 @@ export class UserService {
     localStorage.removeItem('user');
     this.router.navigate(['/login'])
   }
-  saveInStorage(id: string, token: string, user: User) { // revisar usermodelo
+  saveInStorage(id: string, token: string, user: User, menu: any[]=[]) { // revisar usermodelo
     localStorage.setItem('id', id);
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('menu', JSON.stringify(menu));
     this.user = user;
     this.token = token;
+    this.menu = menu;
 
   }
   loginGoogle(token: string) {
     let url = _URLSERVICES + 'login/google';
     return this.http.post(url, { token }).pipe(map((resp: any) => {
-      this.saveInStorage(resp.id, resp.token, resp.user)
+      this.saveInStorage(resp.id, resp.token, resp.user, resp.menu)
       return true;
     }))
 
@@ -66,7 +71,7 @@ export class UserService {
     let url = _URLSERVICES + '/login';
     return this.http.post(url, user)
       .pipe(map((resp: any) => {
-        this.saveInStorage(resp.id, resp.token, resp.user)
+        this.saveInStorage(resp.id, resp.token, resp.user, resp.menu)
         return true;
       }))
   }
@@ -86,7 +91,7 @@ export class UserService {
       .pipe(map((resp: any) => {
         if (user._id === this.user._id) {
           let userDB: User = resp.user;
-          this.saveInStorage(userDB._id, this.token, userDB);
+          this.saveInStorage(userDB._id, this.token, userDB, this.menu);
         }
         swal('Usuario actualizado', user.name, 'success');
         return true;
@@ -97,7 +102,7 @@ export class UserService {
       .then((resp: any) => {
         this.user.img = resp.user.img;
         swal('Imagen Acutualizada', this.user.name, 'succes');
-        this.saveInStorage(id, this.token, this.user);
+        this.saveInStorage(id, this.token, this.user, this.menu);
       })
   }
   loadUsers(from: number = 0) {
