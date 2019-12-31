@@ -26,7 +26,6 @@ import { PromiseComponent } from './promise/promise.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UsersComponent } from './users/users.component';
-import { ModalUploadComponent } from '../components/modal-upload/modal-upload.component';
 import { HospitalsComponent } from './hospitals/hospitals.component';
 import { MedicsComponent } from './medics/medics.component';
 import { MedicComponent } from './medics/medic.component';
@@ -39,7 +38,6 @@ import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
-    PagesComponent,
     DashboardComponent,
     ProgressComponent,
     Graphics1Component,
@@ -50,7 +48,6 @@ import { SearchComponent } from './search/search.component';
     RxjsComponent,
     ProfileComponent,
     UsersComponent,
-    ModalUploadComponent,
     HospitalsComponent,
     MedicsComponent,
     MedicComponent,

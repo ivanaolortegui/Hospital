@@ -21,6 +21,17 @@ export class UserService {
     this.loadStorage();
   }
 
+  
+RenewToken(){
+  let url = _URLSERVICES+ '/login/Renewtoken';
+  url += '?token' + this.token;
+  this.http.get( url )
+  .pipe(map((resp : any)=> {
+    this.token = resp.token;
+    localStorage.setItem('token', this.token);
+    return true;
+  }))
+}
   isLogged() {
     return (this.token.length > 5) ? true : false
   }
