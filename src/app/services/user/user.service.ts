@@ -7,7 +7,6 @@ import { map, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import swal from 'sweetalert';
 import { UploadFileService } from '../file/upload-file.service';
-import { Observable } from 'rxjs/internal/Observable';
 import { throwError } from 'rxjs/internal/observable/throwError';
 
 
@@ -24,17 +23,22 @@ export class UserService {
     this.loadStorage();
   }
 
-  
-RenewToken(){
-  let url = _URLSERVICES+ '/login/Renewtoken';
-  url += '?token' + this.token;
-  this.http.get( url )
-  .pipe(map((resp : any)=> {
-    this.token = resp.token;
-    localStorage.setItem('token', this.token);
-    return true;
-  }))
-}
+
+  RenewToken() {
+    let url = _URLSERVICES + '/login/Renewtoken';
+    url += '?token' + this.token;
+    return this.http.get(url)
+      .pipe(map((resp: any) => {
+        this.token = resp.token;
+        localStorage.setItem('token', this.token);
+        return true;
+      }))
+      .pipe(catchError(err => {
+       this.router.navigate(['/login']);
+        swal('No se pudo renovar el token', 'No fue posible renovar el token', 'error');
+        return throwError(err);
+      }));
+  }
   isLogged() {
     return (this.token.length > 5) ? true : false;
   }
@@ -65,7 +69,6 @@ RenewToken(){
     this.user = user;
     this.token = token;
     this.menu = menu;
-
   }
   loginGoogle(token: string) {
     let url = _URLSERVICES + 'login/google';
@@ -88,14 +91,13 @@ RenewToken(){
         map((resp: any) => {
           this.saveInStorage(resp.id, resp.token, resp.user, resp.menu);
           return true;
-        }).
-        catchError(err => {
-            console.log(err.status);
-            swal('Error en el login', err.error.message, 'error');
-            return throwError(err);
+        })
+      ).pipe(catchError(err => {
+        console.log(err.status);
+        swal('Error en el login', err.error.message, 'error');
+        return throwError(err);
 
-          })
-      );
+      }));
   }
 
   createUser(user: User) {
@@ -103,16 +105,16 @@ RenewToken(){
     return this.http.post(url, user)
       .pipe(
         map((resp: any) => {
-        swal('Usuario creado', user.email, 'succes');
-        return resp.user;
-        }).
-        catchError(err => {
-          console.log(err.status);
-          swal(err.error.message, err.error.errors.message, 'error');
-          return throwError(err);
-
+          swal('Usuario creado', user.email, 'succes');
+          return resp.user;
         })
-      );
+
+      ).pipe(catchError((err: any) => {
+        console.log(err.status);
+        swal(err.error.message, err.error.errors.message, 'error');
+        return throwError(err);
+
+      }));
   }
   updateUser(user: User) {
     let url = _URLSERVICES + '/user' + user._id;
@@ -120,20 +122,21 @@ RenewToken(){
     return this.http.put(url, user)
       .pipe(
         map((resp: any) => {
-        if (user._id === this.user._id) {
-          let userDB: User = resp.user;
-          this.saveInStorage(userDB._id, this.token, userDB, this.menu);
-        }
-        swal('Usuario actualizado', user.name, 'success');
-        return true;
-      }).
-      catchError(err => {
+          if (user._id === this.user._id) {
+            let userDB: User = resp.user;
+            this.saveInStorage(userDB._id, this.token, userDB, this.menu);
+          }
+          swal('Usuario actualizado', user.name, 'success');
+          return true;
+        })
+
+      ).
+      pipe(catchError(err => {
         console.log(err.status);
         swal(err.error.message, err.error.errors.message, 'error');
         return throwError(err);
 
-      })
-      );
+      }));
   }
   changeImg(file: File, id: string) {
     this._uploadFileService.uploadFile(file, 'users', id)

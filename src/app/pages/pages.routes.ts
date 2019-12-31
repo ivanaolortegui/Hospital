@@ -9,7 +9,7 @@ import { PromiseComponent } from './promise/promise.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { ProfileComponent } from './profile/profile.component';
 
-import { LoadGuardGuard, AdminGuard } from '../services/service.index';
+import { LoadGuardGuard, AdminGuard, VerifyTokenGuard } from '../services/service.index';
 import { UsersComponent } from './users/users.component';
 import { HospitalsComponent } from './hospitals/hospitals.component';
 import { MedicsComponent } from './medics/medics.component';
@@ -25,7 +25,12 @@ const pagesRoutes: Routes = [
     component: PagesComponent,
     canActivate: [LoadGuardGuard],
     children: [
-      { path: 'dashboard', component: DashboardComponent, data : {title: 'dashboard'}},
+      { 
+        path: 'dashboard', 
+        component: DashboardComponent, 
+        canActivate:[VerifyTokenGuard],
+        data : {title: 'dashboard'}
+      },
       { path: 'progress', component: ProgressComponent, data : {title: 'progress'}},
       { path: 'graficas1', component: Graphics1Component, data : {title: 'gráficas'} },
       { path: 'promesa', component: PromiseComponent, data : {title: 'promesa'}},
