@@ -2,10 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from 'src/app/models/user.model';
 import { _URLSERVICES } from 'src/app/config/config';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
+
 import { Router } from '@angular/router';
 import swal from 'sweetalert';
 import { UploadFileService } from '../file/upload-file.service';
+import { Observable } from 'rxjs/internal/Observable';
+import { throwError } from 'rxjs/internal/observable/throwError';
 
 
 @Injectable({
@@ -33,13 +36,13 @@ RenewToken(){
   }))
 }
   isLogged() {
-    return (this.token.length > 5) ? true : false
+    return (this.token.length > 5) ? true : false;
   }
   loadStorage() {
     if (localStorage.getItem('token')) {
       this.token = localStorage.getItem('token');
-      this.user = JSON.parse(localStorage.getItem('user'))
-      this.user = JSON.parse(localStorage.getItem('menu'))
+      this.user = JSON.parse(localStorage.getItem('user'));
+      this.user = JSON.parse(localStorage.getItem('menu'));
     } else {
       this.token = '';
       this.user = null;
@@ -54,7 +57,7 @@ RenewToken(){
     localStorage.removeItem('user');
     this.router.navigate(['/login'])
   }
-  saveInStorage(id: string, token: string, user: User, menu: any[]=[]) { // revisar usermodelo
+  saveInStorage(id: string, token: string, user: User, menu: any[] = []) { // revisar usermodelo
     localStorage.setItem('id', id);
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(user));
@@ -67,9 +70,9 @@ RenewToken(){
   loginGoogle(token: string) {
     let url = _URLSERVICES + 'login/google';
     return this.http.post(url, { token }).pipe(map((resp: any) => {
-      this.saveInStorage(resp.id, resp.token, resp.user, resp.menu)
+      this.saveInStorage(resp.id, resp.token, resp.user, resp.menu);
       return true;
-    }))
+    }));
 
   }
 
@@ -81,32 +84,56 @@ RenewToken(){
     }
     let url = _URLSERVICES + '/login';
     return this.http.post(url, user)
-      .pipe(map((resp: any) => {
-        this.saveInStorage(resp.id, resp.token, resp.user, resp.menu)
-        return true;
-      }))
+      .pipe(
+        map((resp: any) => {
+          this.saveInStorage(resp.id, resp.token, resp.user, resp.menu);
+          return true;
+        }).
+        catchError(err => {
+            console.log(err.status);
+            swal('Error en el login', err.error.message, 'error');
+            return throwError(err);
+
+          })
+      );
   }
 
   createUser(user: User) {
     let url = _URLSERVICES + '/usuario';
     return this.http.post(url, user)
-      .pipe(map((resp: any) => {
+      .pipe(
+        map((resp: any) => {
         swal('Usuario creado', user.email, 'succes');
         return resp.user;
-      }))
+        }).
+        catchError(err => {
+          console.log(err.status);
+          swal(err.error.message, err.error.errors.message, 'error');
+          return throwError(err);
+
+        })
+      );
   }
   updateUser(user: User) {
     let url = _URLSERVICES + '/user' + user._id;
     url += '?token=' + this.token;
     return this.http.put(url, user)
-      .pipe(map((resp: any) => {
+      .pipe(
+        map((resp: any) => {
         if (user._id === this.user._id) {
           let userDB: User = resp.user;
           this.saveInStorage(userDB._id, this.token, userDB, this.menu);
         }
         swal('Usuario actualizado', user.name, 'success');
         return true;
-      }));
+      }).
+      catchError(err => {
+        console.log(err.status);
+        swal(err.error.message, err.error.errors.message, 'error');
+        return throwError(err);
+
+      })
+      );
   }
   changeImg(file: File, id: string) {
     this._uploadFileService.uploadFile(file, 'users', id)
@@ -114,7 +141,7 @@ RenewToken(){
         this.user.img = resp.user.img;
         swal('Imagen Acutualizada', this.user.name, 'succes');
         this.saveInStorage(id, this.token, this.user, this.menu);
-      })
+      });
   }
   loadUsers(from: number = 0) {
     let url = _URLSERVICES + '/user?from=' + from;
