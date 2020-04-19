@@ -1,1 +1,1 @@
-export const _URLSERVICES = 'http:/localhost:3000';
+export const _URLSERVICES = 'http://localhost:3000';

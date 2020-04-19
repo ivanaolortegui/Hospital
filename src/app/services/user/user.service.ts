@@ -5,11 +5,11 @@ import { _URLSERVICES } from 'src/app/config/config';
 import { map, catchError } from 'rxjs/operators';
 
 import { Router } from '@angular/router';
-import swal from 'sweetalert';
+// import swal from 'sweetalert';
 import { UploadFileService } from '../file/upload-file.service';
 import { throwError } from 'rxjs/internal/observable/throwError';
 
-
+declare var swal: any;
 @Injectable({
   providedIn: 'root'
 })
@@ -103,18 +103,18 @@ export class UserService {
   createUser(user: User) {
     let url = _URLSERVICES + '/usuario';
     return this.http.post(url, user)
-      .pipe(
+       .pipe(
         map((resp: any) => {
-          swal('Usuario creado', user.email, 'succes');
+          swal('Usuario creado', user.email, 'success');
           return resp.user;
         })
 
-      ).pipe(catchError((err: any) => {
-        console.log(err.status);
-        swal(err.error.message, err.error.errors.message, 'error');
+      ) .pipe(catchError((err: any) => {
+        console.log(err.error.errors.message);
+         swal(err.error.mensaje, err.error.errors.message, 'error'); 
         return throwError(err);
 
-      }));
+      }));  
   }
   updateUser(user: User) {
     let url = _URLSERVICES + '/user' + user._id;
@@ -126,7 +126,7 @@ export class UserService {
             let userDB: User = resp.user;
             this.saveInStorage(userDB._id, this.token, userDB, this.menu);
           }
-          swal('Usuario actualizado', user.name, 'success');
+          swal('Usuario actualizado', user.nombre, 'success');
           return true;
         })
 
@@ -142,7 +142,7 @@ export class UserService {
     this._uploadFileService.uploadFile(file, 'users', id)
       .then((resp: any) => {
         this.user.img = resp.user.img;
-        swal('Imagen Acutualizada', this.user.name, 'succes');
+        swal('Imagen Acutualizada', this.user.nombre, 'succes');
         this.saveInStorage(id, this.token, this.user, this.menu);
       });
   }

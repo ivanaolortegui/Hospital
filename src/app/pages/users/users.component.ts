@@ -76,7 +76,7 @@ export class UsersComponent implements OnInit {
     }
     swal({
       title: '¿Esta seguro',
-      text: 'Esta a punto de borrar a' + user.name,
+      text: 'Esta a punto de borrar a' + user.nombre,
       icon: 'warning',
       buttons: true,
       dangerMode: true,

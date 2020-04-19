@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
 
   attachSignin(element) {
     this.auth2.attachSignin(element, {}, (googleUser) => {
-      // let profile = googleUser.getBasicProfile();
+       let profile = googleUser.getBasicProfile();
       let token = googleUser.getAuthResponse().id_token;
       this._userService.loginGoogle(token)
         .subscribe((resp) =>  window.location.href = '#/dashboard')
@@ -54,10 +54,10 @@ export class LoginComponent implements OnInit {
     }
     let user = new User(null, form.value.email, form.value.password);
     console.log(form);
-    /*   this._userService.login(user, form.value.remember).subscribe( resp=> {
+       this._userService.login(user, form.value.remember).subscribe( resp=> {
         this.router.navigate(['/dashboard'])
-      }) */
-    // this.router.navigate(['/dashboard']);
+      }) 
+     this.router.navigate(['/dashboard']);
     init_plugins()
   }
 }

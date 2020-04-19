@@ -21,7 +21,7 @@ temporaryImage : string | ArrayBuffer;
   ngOnInit() {
   }
   save( user: User) {
-    this.user.name = user.name;
+    this.user.nombre = user.nombre;
     if(!user.google){
       this.user.email = user.email;
     }
